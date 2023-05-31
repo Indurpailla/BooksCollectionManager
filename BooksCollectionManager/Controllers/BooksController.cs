@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BooksCollectionManager.Models;
+using BooksCollectionManager.Services.Models;
+using BooksCollectionManager.Services.ServiceInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -13,91 +14,67 @@ namespace BooksCollectionManager.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        //path to the json data file
-        private const string DataFilePath = "data.json";
+        private IBookService _booksService;
+
+        public BooksController(IBookService bookService)
+        {
+            _booksService = bookService;
+        }
 
         [HttpGet]
         public ActionResult<IEnumerable<Book>> GetBooks()
         {
-            var books = LoadData();
-            return books.ToList();
+            List<Book> books = _booksService.GetAllBooks();
+            if (books == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new List<Book>());
+            }
+            return StatusCode(StatusCodes.Status200OK, books);
         }
 
         [HttpGet("{id}")]
         public ActionResult<Book> GetBook(int id)
         {
-            var books = LoadData();
-            var book = books.FirstOrDefault(b => b.BookId == id);
+            Book? book = _booksService.GetBookById(id);
             if (book == null)
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status404NotFound, new Book());
             }
-
-            return book;
+            return StatusCode(StatusCodes.Status200OK, book);
         }
 
         [HttpPost]
         public ActionResult<Book> CreateBook(Book book)
         {
-            var books = LoadData();
-            book.BookId = GetNextBookId(books);
-            books.Add(book);
-            SaveData(books);
-
-            return CreatedAtAction(nameof(GetBook), new { id = book.BookId }, book);
+            Book? insertedBook = _booksService.Upsert(book);
+            if (insertedBook == null)
+            {
+                Response.StatusCode = StatusCodes.Status400BadRequest;
+                return StatusCode(StatusCodes.Status400BadRequest, new Book());
+            }
+            return StatusCode(StatusCodes.Status201Created, insertedBook);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateBook(int id, Book updatedBook)
+        public ActionResult<Book> UpdateBook(int id, Book updatedBook)
         {
-            var books = LoadData();
-            var book = books.FirstOrDefault(b => b.BookId == id);
+            Book? book = _booksService.Upsert(updatedBook, id);
             if (book == null)
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status400BadRequest, new Book());
             }
-
-            book.Title = updatedBook.Title;
-            book.Author = updatedBook.Author;
-            book.Genre = updatedBook.Genre;
-            book.PublicationYear = updatedBook.PublicationYear;
-            book.Status = updatedBook.Status;
-            SaveData(books);
-
-            return NoContent();
+            return StatusCode(StatusCodes.Status202Accepted, book);
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteBook(int id)
         {
-            var books = LoadData();
-            var book = books.FirstOrDefault(b => b.BookId == id);
-            if (book == null)
+            bool deleteStatus = _booksService.DeleteBook(id);
+            if (deleteStatus == false)
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status400BadRequest, deleteStatus);
             }
-
-            books.Remove(book);
-            SaveData(books);
-
-            return NoContent();
-        }
-
-        private List<Book> LoadData()
-        {
-            var json = System.IO.File.ReadAllText(DataFilePath);
-            return JsonConvert.DeserializeObject<List<Book>>(json) ?? new List<Book>();
-        }
-
-        private void SaveData(List<Book> books)
-        {
-            var json = JsonConvert.SerializeObject(books);
-            System.IO.File.WriteAllText(DataFilePath, json);
-        }
-
-        private int GetNextBookId(List<Book> books)
-        {
-            return books.Any() ? books.Max(b => b.BookId) + 1 : 1;
+            return StatusCode(StatusCodes.Status200OK, deleteStatus);
         }
 
     }

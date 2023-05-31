@@ -1,13 +1,29 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using System.Text.Json.Serialization;
+using BooksCollectionManager.Services.Services;
+using BooksCollectionManager.Services.ServiceInterfaces;
+using BooksCollectionManager.Controllers;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+//builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.
+           Add(new JsonStringEnumConverter());
+
+    options.JsonSerializerOptions.DefaultIgnoreCondition =
+             JsonIgnoreCondition.WhenWritingNull;
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IBookStatusService, BookStatusService>();
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

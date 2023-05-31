@@ -1,0 +1,42 @@
+[
+  {
+    "BookId": 1,
+    "Title": "A Thousand Splendid Suns",
+    "Author": "Khaled Hosseini",
+    "Genre": "Novel, Domestic Fiction",
+    "PublicationYear": 2007,
+    "Status": 0
+  },
+  {
+    "BookId": 2,
+    "Title": "Steal Like an Artist",
+    "Author": "Austin Kleon",
+    "Genre": "Self-help",
+    "PublicationYear": 2012,
+    "Status": 1
+  },
+  {
+    "BookId": 3,
+    "Title": "Green Lights",
+    "Author": "Matthew McConaughey",
+    "Genre": "Memoir, Biography, Autobiography, Philosophy, Poetry",
+    "PublicationYear": 2020,
+    "Status": 1
+  },
+  {
+    "BookId": 5,
+    "Title": "Rumors of Spring",
+    "Author": "Farah Bashir",
+    "Genre": "Biography, Autobiography",
+    "PublicationYear": 2021,
+    "Status": 0
+  },
+  {
+    "BookId": 6,
+    "Title": "The Nightingale",
+    "Author": "Kristin Hannah",
+    "Genre": "Novel, Historical Fiction, Romance novel, War story",
+    "PublicationYear": 2015,
+    "Status": 1
+  }
+]

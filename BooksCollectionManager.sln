@@ -5,6 +5,12 @@ VisualStudioVersion = 25.0.1705.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksCollectionManager", "BooksCollectionManager\BooksCollectionManager.csproj", "{629163AF-52A3-4415-8D34-2CD5AE7BE323}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{E78A2229-530B-4DB7-8E82-36E25CBE6074}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksCollectionManager.Services", "BooksCollectionManager.Services\BooksCollectionManager.Services.csproj", "{070000D9-59F1-4130-833B-7EDAC420F637}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksCollectionManagerTest", "BooksCollectionManagerTest\BooksCollectionManagerTest.csproj", "{B4DD8FD1-D812-4782-AC74-9AF300545A6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,11 +21,21 @@ Global
 		{629163AF-52A3-4415-8D34-2CD5AE7BE323}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{629163AF-52A3-4415-8D34-2CD5AE7BE323}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{629163AF-52A3-4415-8D34-2CD5AE7BE323}.Release|Any CPU.Build.0 = Release|Any CPU
+		{070000D9-59F1-4130-833B-7EDAC420F637}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{070000D9-59F1-4130-833B-7EDAC420F637}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{070000D9-59F1-4130-833B-7EDAC420F637}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{070000D9-59F1-4130-833B-7EDAC420F637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4DD8FD1-D812-4782-AC74-9AF300545A6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4DD8FD1-D812-4782-AC74-9AF300545A6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4DD8FD1-D812-4782-AC74-9AF300545A6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4DD8FD1-D812-4782-AC74-9AF300545A6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CE030FAA-906E-4028-B297-683510E6F7F1}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal

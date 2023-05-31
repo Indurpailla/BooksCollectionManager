@@ -2,49 +2,37 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BooksCollectionManager.Models;
+using BooksCollectionManager.Services;
+using BooksCollectionManager.Services.Models;
+using BooksCollectionManager.Services.ServiceInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-//This is to just check git commit
 namespace BooksCollectionManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class StatusController : ControllerBase
     {
-        private const string DataFilePath = "data.json";
+        private IBookStatusService _bookStatusService;
+
+        public StatusController(IBookStatusService bookStatusService)
+        {
+            _bookStatusService = bookStatusService;
+        }
 
         [HttpPost]
         public ActionResult<BookStatus> CreateStatus(BookStatus status)
         {
-            var books = LoadData();
-            var book = books.FirstOrDefault(b => b.BookId == status.BookId);
-            if (book == null)
+            BookStatus? insertedBookStatus = _bookStatusService.Insert(status);
+            if (insertedBookStatus == null)
             {
-                return NotFound("Book not found");
+                Response.StatusCode = StatusCodes.Status400BadRequest;
+                return StatusCode(StatusCodes.Status400BadRequest, new BookStatus());
             }
-
-            book.Status = status;
-            SaveData(books);
-
-            return CreatedAtAction(nameof(BooksController.GetBook), new { id = book.BookId }, book);
+            return StatusCode(StatusCodes.Status201Created, insertedBookStatus);
         }
-
-        private List<Book> LoadData()
-        {
-            var json = System.IO.File.ReadAllText(DataFilePath);
-            return JsonConvert.DeserializeObject<List<Book>>(json) ?? new List<Book>();
-
-        }
-
-        private void SaveData(List<Book> books)
-        {
-            var json = JsonConvert.SerializeObject(books);
-            System.IO.File.WriteAllText(DataFilePath, json);
-        }
-
 
     }
 }
