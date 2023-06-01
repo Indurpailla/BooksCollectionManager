@@ -65,22 +65,6 @@ namespace BooksCollectionManager.Services.Services
             return book;
         }
 
-        //Lookup the most recent status of the book in statuses and return
-        //If there is no status entry in the status for the current book, return as "Available"
-        private static StatusEnum getMostResentStatus(int bookId, List<BookStatus> statuses)
-        {
-
-            // Get the most recent status
-            var mostRecentStatus = statuses.Where(s => s.BookId == bookId).OrderByDescending(s => s.CreatedAt).FirstOrDefault();
-            if (mostRecentStatus != null)
-            {
-                return mostRecentStatus.StatusValue;
-            }else
-            {
-                return StatusEnum.Available;
-            }
-        }
-
         public Book? Upsert(Book upsertBook, int id = 0)
         {
             List<Book> books = LoadData();
@@ -137,6 +121,24 @@ namespace BooksCollectionManager.Services.Services
             var json = File.ReadAllText(_SDataFilePath);
             return JsonConvert.DeserializeObject<List<BookStatus>>(json) ?? new List<BookStatus>();
         }
+
+        //Lookup the most recent status of the book in statuses and return
+        //If there is no status entry in the status for the current book, return as "Available"
+        private static StatusEnum getMostResentStatus(int bookId, List<BookStatus> statuses)
+        {
+
+            // Get the most recent status
+            var mostRecentStatus = statuses.Where(s => s.BookId == bookId).OrderByDescending(s => s.CreatedAt).FirstOrDefault();
+            if (mostRecentStatus != null)
+            {
+                return mostRecentStatus.StatusValue;
+            }
+            else
+            {
+                return StatusEnum.Available;
+            }
+        }
+
     }
 }
 

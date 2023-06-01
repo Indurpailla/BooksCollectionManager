@@ -8,7 +8,7 @@ namespace BooksCollectionManager.Services.Services;
 public class BookStatusService : IBookStatusService
 {
     //path to the json data file
-    private const string DataFilePath = "StatusesData.json";
+    private const string _SDataFilePath = "StatusesData.json";
 
     public BookStatus? Insert(BookStatus bookStatus)
     {
@@ -23,14 +23,14 @@ public class BookStatusService : IBookStatusService
         bookStatuses.Add(_newStatus);
         
         // Writing JSON to the file
-        System.IO.File.WriteAllText(DataFilePath, JsonConvert.SerializeObject(bookStatuses));
+        System.IO.File.WriteAllText(_SDataFilePath, JsonConvert.SerializeObject(bookStatuses));
         return bookStatus;
     }
 
     private List<BookStatus> LoadData()
     {
         // reading the contents of the JSON file
-        var json = System.IO.File.ReadAllText(DataFilePath);
+        var json = System.IO.File.ReadAllText(_SDataFilePath);
         // deserialize the JSON into a list of books, or return an empty list if the deserialization fails
         return JsonConvert.DeserializeObject<List<BookStatus>>(json) ?? new List<BookStatus>();
 
