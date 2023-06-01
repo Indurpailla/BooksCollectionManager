@@ -39,7 +39,7 @@ namespace BooksCollectionManagerTest
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(Book));
             Assert.AreEqual(bookId, result.BookId);
-            Assert.AreEqual(StatusEnum.Rented, result.Status);
+            Assert.AreEqual(StatusEnum.Available, result.Status);
         }
 
         [TestMethod]

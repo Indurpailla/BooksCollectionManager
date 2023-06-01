@@ -8,7 +8,7 @@ using BooksCollectionManager.Services.ServiceInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-
+//This Controller creates new Status entry
 namespace BooksCollectionManager.Controllers
 {
     [Route("api/[controller]")]

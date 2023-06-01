@@ -7,7 +7,7 @@ using BooksCollectionManager.Services.ServiceInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-
+//This controller manages Books Collection
 namespace BooksCollectionManager.Controllers
 {
     [Route("api/[controller]")]
@@ -59,6 +59,7 @@ namespace BooksCollectionManager.Controllers
         public ActionResult<Book> UpdateBook(int id, Book updatedBook)
         {
             Book? book = _booksService.Upsert(updatedBook, id);
+      
             if (book == null)
             {
                 return StatusCode(StatusCodes.Status400BadRequest, new Book());

@@ -61,5 +61,19 @@
     "UserId": 8,
     "StatusValue": 1,
     "CreatedAt": "2023-05-31T17:03:25.991Z"
+  },
+  {
+    "StatusId": 10,
+    "BookId": 6,
+    "UserId": 5,
+    "StatusValue": 1,
+    "CreatedAt": "2023-06-01T19:50:29.576Z"
+  },
+  {
+    "StatusId": 11,
+    "BookId": 6,
+    "UserId": 9,
+    "StatusValue": 0,
+    "CreatedAt": "2023-06-01T20:52:58.133Z"
   }
 ]
