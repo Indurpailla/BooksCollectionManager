@@ -74,3 +74,5 @@ By associating a book with its corresponding user and status, you can track whet
 The Status object will determine the state of the Book object when retrieving a book by retrieving the most recent status object and returning the appropriate status.
 
 The API should handle the CRUD operations for both books and statuses, providing users with the ability to manage the collection of books and their respective status entries.
+
+# We can use InMemory Cache for to improve the efficiency of data retrieval. I can make those changes if required.
